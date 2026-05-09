@@ -44,7 +44,7 @@ export const ProjectDetail = () => {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, [projectId]);
 
   const createTask = async (e) => {

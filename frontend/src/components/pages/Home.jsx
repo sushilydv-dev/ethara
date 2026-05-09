@@ -12,7 +12,7 @@ export const Home = () => {
   const loadProjects = async () => {
     try {
       setLoading(true);
-      const data = await apiFetch("https://ethara-yhgl.onrender.com/api/projects");
+      const data = await apiFetch("/api/projects");
       setProjects(data.projects || []);
     } catch (err) {
       if (String(err.message).toLowerCase().includes("token")) {
@@ -28,7 +28,6 @@ export const Home = () => {
 
   useEffect(() => {
     loadProjects();
-   
   }, []);
 
   const handleCreate = async (e) => {
@@ -129,4 +128,3 @@ export const Home = () => {
     </div>
   );
 };
-
