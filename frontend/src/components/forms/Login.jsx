@@ -24,7 +24,6 @@ export const Login = () => {
       [name]: value,
     });
 
-  
     if (name === "email") {
       setError((prev) => ({
         ...prev,
@@ -44,16 +43,12 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   
-    if (
-      !mailreg.test(logindata.email) ||
-      !passreg.test(logindata.password)
-    ) {
+    if (!mailreg.test(logindata.email) || !passreg.test(logindata.password)) {
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("https://ethara-yhgl.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +68,6 @@ export const Login = () => {
       alert("Server error");
     }
   };
-
 
   const invalid =
     !logindata.email ||

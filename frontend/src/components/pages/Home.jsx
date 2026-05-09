@@ -12,7 +12,7 @@ export const Home = () => {
   const loadProjects = async () => {
     try {
       setLoading(true);
-      const data = await apiFetch("/api/projects");
+      const data = await apiFetch("https://ethara-yhgl.onrender.com/api/projects");
       setProjects(data.projects || []);
     } catch (err) {
       if (String(err.message).toLowerCase().includes("token")) {
