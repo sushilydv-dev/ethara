@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:3000";
+const API_BASE = "https://ethara-yhgl.onrender.com";
 
 export function getToken() {
   return localStorage.getItem("token");
@@ -28,4 +28,3 @@ export async function apiFetch(path, options = {}) {
 
   return data;
 }
-
