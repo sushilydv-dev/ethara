@@ -1,29 +1,41 @@
 const { Sequelize } = require("sequelize");
 
-const DB_HOST = process.env.DB_HOST;
-const DB_PORT = Number(process.env.DB_PORT || 5432);
-const DB_NAME = process.env.DB_NAME;
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
+// Look for a single connection string, otherwise fallback to individual vars
+const connectionString = process.env.DATABASE_URL;
 
-const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-  host: DB_HOST,
-  port: DB_PORT,
-  dialect: "postgres",
-  logging: false,
-
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
+const sequelize = connectionString
+  ? new Sequelize(connectionString, {
+      dialect: "postgres",
+      logging: false,
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
+    })
+  : new Sequelize(
+      process.env.DB_NAME,
+      process.env.DB_USER,
+      process.env.DB_PASSWORD,
+      {
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT || 5432),
+        dialect: "postgres",
+        logging: false,
+        dialectOptions: {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        },
+      },
+    );
 
 async function initDb() {
   try {
     await sequelize.authenticate();
-    console.log("Database connected");
+    console.log("Database connected successfully using connection string.");
 
     require("../models");
 
